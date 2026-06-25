@@ -1,0 +1,17 @@
+请为 MouseGestureStudio 生成一个“组合动作 JSON”。
+
+规则：
+1. 只输出合法 JSON，不要 Markdown，不要解释文字。
+2. 顶层使用对象结构：name、description、vars、steps。
+3. steps 只能使用这些 kind：
+   date_picker、choice、clipboard、paste、text、shortcut、delay、launch、open_url、open_urls、get_selected_text、foreach_line、set_var、builtin。
+4. 字段里的变量可以使用：
+   {date}、{date_dot}、{date_slash}、{date_short}、{date_cn}、{time}、{time_short}、{datetime}、{clipboard}。
+5. 如果需要处理选中文本，先使用 get_selected_text，再使用 foreach_line。
+6. 如果需要从选中文本里批量打开网址，使用 get_selected_text + open_urls；open_urls 会自动提取和清洗网址，不要用 foreach_line 逐行硬开。
+7. 如果需要把内容写入当前输入框，优先使用 clipboard + paste，或 choice/date_picker 的 paste:true。
+8. 如果需要让用户从多个选项里选择，使用 choice，并把 title、var、options 写清楚。
+9. 不要生成未定义的 kind，不要生成注释，不要生成尾随逗号。
+
+我的需求：
+【在这里描述你想通过手势执行什么】

@@ -1,0 +1,24 @@
+{
+  "name": "选择日期格式并写入",
+  "description": "弹出日期格式选择框，选择后自动粘贴到当前输入框。",
+  "vars": {},
+  "steps": [
+    {
+      "kind": "date_picker",
+      "paste": true,
+      "formats": [
+        "{date}",
+        "{date_dot}",
+        "{date_slash}",
+        "{date_short}",
+        "liaozhu913-{date_short}-{time_short}",
+        "liaozhu913-xwlb-{date_short}",
+        "liaozhu913-ksfx-{date_short}-{time_short}",
+        "{date_cn}",
+        "{date_cn} {time_short}",
+        "早报-{date_cn}-{time_short}",
+        "{date_cn} 精选早安祝福语，星期问候动态图"
+      ]
+    }
+  ]
+}

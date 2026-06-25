@@ -1,0 +1,16 @@
+{
+  "name": "打开每日固定网页",
+  "description": "一次性打开每天需要看的几个网页。",
+  "vars": {},
+  "steps": [
+    {
+      "kind": "open_urls",
+      "interval_ms": 250,
+      "urls": [
+        "https://www.bing.com",
+        "https://news.ycombinator.com",
+        "https://www.getquicker.net"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "打开选中的多行网址",
+  "description": "先复制当前选中的文本，再自动提取里面的网址；会过滤空行、空格、说明文字和尾随标点，单个网址失败不会中断后续打开。",
+  "vars": {},
+  "steps": [
+    {
+      "kind": "get_selected_text",
+      "var": "selected_text",
+      "delay_ms": 150
+    },
+    {
+      "kind": "open_urls",
+      "urls": "{selected_text}",
+      "interval_ms": 250
+    }
+  ]
+}

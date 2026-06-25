@@ -1,0 +1,32 @@
+{
+  "name": "选择日报日期并写入",
+  "description": "弹出通用选择框，让用户选择一种日期文本，然后自动粘贴到当前输入框。",
+  "vars": {},
+  "steps": [
+    {
+      "kind": "choice",
+      "title": "请选择日报日期格式",
+      "var": "picked_date",
+      "clipboard": true,
+      "paste": true,
+      "options": [
+        {
+          "label": "早报短日期",
+          "value": "早报-{date_short}"
+        },
+        {
+          "label": "中文日期",
+          "value": "{date_cn}"
+        },
+        {
+          "label": "中文日期 + 时间",
+          "value": "{date_cn} {time_short}"
+        },
+        {
+          "label": "日报固定标题",
+          "value": "{date_cn} 早报时间更新"
+        }
+      ]
+    }
+  ]
+}
