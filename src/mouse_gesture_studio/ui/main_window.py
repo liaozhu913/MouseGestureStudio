@@ -30,6 +30,7 @@ from ..config import ConfigManager, resource_path
 from ..constants import TRIGGER_BUTTONS
 from ..models import ActionConfig, AppSettings, GestureTemplate
 from ..system import ActionExecutor, MouseHook
+from ..system import win32
 from ..system.startup import has_startup_entry, is_startup_enabled, set_startup_enabled
 from .edit_dialog import EditGestureDialog
 from .gesture_overlay import GestureOverlay
@@ -239,6 +240,7 @@ class MainWindow(QMainWindow):
         self._refresh_cards()
         self.mouse_hook.start()
         self.tray_icon.show()
+        self._warn_if_not_admin()
 
     def _create_tray_icon(self) -> QSystemTrayIcon:
         tray = QSystemTrayIcon(self)
@@ -601,6 +603,18 @@ class MainWindow(QMainWindow):
 
     def _notify(self, title: str, message: str) -> None:
         self.tray_icon.showMessage(title, message, QSystemTrayIcon.MessageIcon.Information, 1800)
+
+    def _warn_if_not_admin(self) -> None:
+        if win32.is_user_admin():
+            return
+        message = "当前未以管理员运行；在管理员权限软件上可能无法触发手势。安装版会请求管理员权限以增强全局覆盖。"
+        self.statusBar().showMessage(message, 8000)
+        self.tray_icon.showMessage(
+            "MouseGestureStudio",
+            message,
+            QSystemTrayIcon.MessageIcon.Information,
+            3000,
+        )
 
     def _quit_app(self) -> None:
         self.capture_overlay.clear()

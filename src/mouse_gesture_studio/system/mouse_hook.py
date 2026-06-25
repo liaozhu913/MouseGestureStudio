@@ -111,7 +111,7 @@ class MouseHook(QObject):
             with self._state_lock:
                 if not self._points or current != self._points[-1]:
                     self._points.append(current)
-            return win32.user32.CallNextHookEx(self._hook_handle, code, w_param, l_param)
+            return 1
 
         if self.is_capturing() and event_button == self._capture_button and self._is_button_up(w_param):
             with self._state_lock:

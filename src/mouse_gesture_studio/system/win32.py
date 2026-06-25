@@ -6,6 +6,7 @@ from ctypes import wintypes
 
 user32 = ctypes.WinDLL("user32", use_last_error=True)
 kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+shell32 = ctypes.WinDLL("shell32", use_last_error=True)
 
 LRESULT = wintypes.LPARAM
 ULONG_PTR = wintypes.WPARAM
@@ -204,6 +205,9 @@ kernel32.GetCurrentThreadId.restype = wintypes.DWORD
 kernel32.GetModuleHandleW.argtypes = [wintypes.LPCWSTR]
 kernel32.GetModuleHandleW.restype = wintypes.HMODULE
 
+shell32.IsUserAnAdmin.argtypes = []
+shell32.IsUserAnAdmin.restype = wintypes.BOOL
+
 
 def send_inputs(inputs: list[INPUT]) -> None:
     if not inputs:
@@ -211,6 +215,13 @@ def send_inputs(inputs: list[INPUT]) -> None:
     array_type = INPUT * len(inputs)
     packed = array_type(*inputs)
     user32.SendInput(len(inputs), packed, ctypes.sizeof(INPUT))
+
+
+def is_user_admin() -> bool:
+    try:
+        return bool(shell32.IsUserAnAdmin())
+    except OSError:
+        return False
 
 
 def make_key_input(vk: int, *, key_up: bool = False, scan: int = 0, unicode: bool = False) -> INPUT:
