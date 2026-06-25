@@ -8,11 +8,13 @@ $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
 $appName = "MouseGestureStudio"
 $buildScript = Join-Path $PSScriptRoot "build.ps1"
-$distApp = Join-Path $root "dist\$appName"
 $installerScripts = Join-Path $PSScriptRoot "installer"
 $installScript = Join-Path $installerScripts "install.ps1"
 $uninstallScript = Join-Path $installerScripts "uninstall.ps1"
 $buildInstallerDir = Join-Path $root "build\installer"
+$packageDistRoot = Join-Path $root "build\package-dist"
+$packageBuildRoot = Join-Path $root "build\package-build"
+$distApp = Join-Path $packageDistRoot $appName
 $payloadDir = Join-Path $buildInstallerDir "payload"
 $payloadAppDir = Join-Path $payloadDir $appName
 $payloadZip = Join-Path $buildInstallerDir "$appName.zip"
@@ -41,7 +43,7 @@ if (-not (Test-Path $iexpress)) {
     throw "IExpress was not found on this Windows installation."
 }
 
-& $buildScript
+& $buildScript -DistRoot $packageDistRoot -BuildRoot $packageBuildRoot -SkipStop
 
 if (-not (Test-Path (Join-Path $distApp "$appName.exe"))) {
     throw "Application build output not found: $distApp"
